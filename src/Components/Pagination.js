@@ -1,19 +1,27 @@
 import React from 'react'
 
-const Pagination = ({ page, setPage, books, setLoading, setBooksUrl}) => {
+const Pagination = ({ page, setPage, books, setLoading, setBooksUrl, booksUrl}) => {
 
   const handlePrev = () => {
-    page === 1 
+    if(!books.previous){
+      setBooksUrl(booksUrl)
+    } else {
+      page === 1 
       ? setPage(1)
       : setPage(page = page - 1)
         setBooksUrl(books.previous)
         setLoading(true)
+    }
   }
   
   const handleNext = () => {
-    setPage(page = page +1)
-    setBooksUrl(books.next)
-    setLoading(true)
+    if(!books.next){
+      setBooksUrl(booksUrl)
+    } else {
+      setPage(page = page +1)
+      setBooksUrl(books.next)
+      setLoading(true)
+    }
   }
 
   return (
