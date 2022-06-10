@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SearchBar = ({ setBooksUrl, searchString, setSearchString, setLoading }) => {
+const SearchBar = ({ setBooksUrl, searchString, setSearchString, setLoading, setPage }) => {
 
   const searchStringHandler = e => {
     setSearchString(e.target.value);
@@ -9,6 +9,8 @@ const SearchBar = ({ setBooksUrl, searchString, setSearchString, setLoading }) =
   const buttonHandler = () =>{
     setLoading(true);
     setBooksUrl(`https://gnikdroy.pythonanywhere.com/api/book/?search=${searchString}`);
+    setSearchString('');
+    setPage(1);
   }
 
   return (

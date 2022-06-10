@@ -6,6 +6,7 @@ import Pagination from './Components/Pagination';
 import Favorite from './Components/Favorite';
 import SearchBar from './Components/SearchBar';
 import LanguageSelection from './Components/LanguageSelection';
+import BookLinks from './Components/BookLinks';
 
 function App() {
 
@@ -26,22 +27,24 @@ function App() {
   const [favoriteBooks, setFavoriteBooks] = useState([]);
   const [searchString, setSearchString] = useState('');
   const [language, setLanguage] = useState('');
+  const [bookLinks, setBookLinks] = useState([]);
 
-  console.log(booksUrl)
+  console.log(bookLinks);
 
   return (
     <div className='App'>
       <h1>Books to read: {books.count}</h1>
-      <SearchBar setBooksUrl={setBooksUrl} searchString={searchString} setSearchString={setSearchString} setLoading={setLoading}/>
+      <SearchBar setBooksUrl={setBooksUrl} searchString={searchString} setSearchString={setSearchString} setLoading={setLoading} setPage={setPage}/>
       <LanguageSelection setBooksUrl={setBooksUrl} language={language} setLanguage={setLanguage} setLoading={setLoading}/>
       { loading
         ? <p>Loading Books</p>
         : <div>
-            <BookList books={books} loading={loading} favoriteBooks={favoriteBooks} setFavoriteBooks={setFavoriteBooks}/>
+            <BookList books={books} loading={loading} favoriteBooks={favoriteBooks} setFavoriteBooks={setFavoriteBooks} setBookLinks={setBookLinks}/>
             <Pagination page={page} setPage={setPage} books={books} setLoading={setLoading} setBooksUrl={setBooksUrl} booksUrl={booksUrl}/>
           </div>
       }
       <Favorite favoriteBooks={favoriteBooks}/>
+      <BookLinks bookLinks={bookLinks}/>
     </div>
   );
 }
