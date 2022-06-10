@@ -1,3 +1,4 @@
+import { Button, TextField } from '@mui/material';
 import React from 'react'
 
 const SearchBar = ({ setBooksUrl, searchString, setSearchString, setLoading, setPage }) => {
@@ -14,8 +15,9 @@ const SearchBar = ({ setBooksUrl, searchString, setSearchString, setLoading, set
   }
 
   return (
-    <div>
-      <label>Find your book <input value={searchString} onChange={searchStringHandler}></input> <button onClick={buttonHandler}>Search</button></label>
+    <div style={{width: 500, margin: 20}}>
+      <TextField id="outlined-basic" label="Find your book" variant="outlined" value={searchString}  onChange={searchStringHandler} />
+      <Button style={{margin: 10}} variant='outlined' onClick={buttonHandler}>Search</Button>
     </div>
   )
 }

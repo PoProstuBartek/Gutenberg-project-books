@@ -1,3 +1,18 @@
 .App {
   text-align: center;
 }
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  padding-bottom: 20px;
+}
+
+.linksContainer {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  z-index: 3;
+  top: 0;
+}

@@ -1,3 +1,6 @@
+import { Button, Typography } from '@mui/material'
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import React from 'react'
 
 const Pagination = ({ page, setPage, books, setLoading, setBooksUrl, booksUrl}) => {
@@ -25,10 +28,10 @@ const Pagination = ({ page, setPage, books, setLoading, setBooksUrl, booksUrl}) 
   }
 
   return (
-    <span>
-      <button onClick={handlePrev}>Prev</button>
-      <h4>{page}</h4>
-      <button onClick={handleNext}>Next</button>
+    <span className='buttonContainer'>
+      <Button variant='outlined' onClick={handlePrev}><NavigateBeforeIcon /></Button>
+      <Typography variant='h4'>Page {page}</Typography>
+      <Button variant='outlined' onClick={handleNext}><NavigateNextIcon /></Button>
     </span>
   )
 }

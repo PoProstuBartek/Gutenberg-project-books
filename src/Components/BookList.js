@@ -1,6 +1,7 @@
+import { Button, List, ListItem, Typography } from '@mui/material'
 import React from 'react'
 
-const BookList = ({ books, loading, favoriteBooks, setFavoriteBooks, setBookLinks }) => {
+const BookList = ({ books, loading, favoriteBooks, setFavoriteBooks, getBookLink}) => {
 
   const addFavorite = book => {
     if (!favoriteBooks.some(alredyFavorite => alredyFavorite.id === book.id)) {
@@ -8,23 +9,19 @@ const BookList = ({ books, loading, favoriteBooks, setFavoriteBooks, setBookLink
     }
   }
 
-  const getBookLink = book => {
-    setBookLinks(book.resources)
-  }
-
   if(!loading){
     return (
-      <ul>
+      <List>
         {books.results.map((book) => (
-          <li key={book.id}>
-            <strong>{book.title}</strong>
-            by
-            <i>{book.agents[0].person}</i>
-            <button onClick={() => getBookLink(book)}>Read me</button>
-            <button onClick={() => addFavorite(book)}>#</button>
-          </li>
+          <ListItem key={book.id}>
+            <Typography variant='h6'><strong>{book.title}</strong></Typography>
+            <span style={{margin: 10}}>by</span>
+            <Typography variant='h6'><i>{book.agents[0].person}</i></Typography>
+            <Button style={{margin: 10}} variant='outlined' onClick={() => getBookLink(book)}>Read book</Button>
+            <Button variant='outlined' onClick={() => addFavorite(book)}>Add favorite</Button>
+          </ListItem>
         ))}
-      </ul>
+      </List>
     )
   }
 }

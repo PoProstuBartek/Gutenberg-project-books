@@ -7,6 +7,8 @@ import Favorite from './Components/Favorite';
 import SearchBar from './Components/SearchBar';
 import LanguageSelection from './Components/LanguageSelection';
 import BookLinks from './Components/BookLinks';
+import { CircularProgress, Paper, Typography } from '@mui/material';
+import { Container } from '@mui/system';
 
 function App() {
 
@@ -29,23 +31,30 @@ function App() {
   const [language, setLanguage] = useState('');
   const [bookLinks, setBookLinks] = useState([]);
 
-  console.log(bookLinks);
+  const getBookLink = book => {
+    setBookLinks(book.resources)
+  }
 
   return (
-    <div className='App'>
-      <h1>Books to read: {books.count}</h1>
-      <SearchBar setBooksUrl={setBooksUrl} searchString={searchString} setSearchString={setSearchString} setLoading={setLoading} setPage={setPage}/>
-      <LanguageSelection setBooksUrl={setBooksUrl} language={language} setLanguage={setLanguage} setLoading={setLoading}/>
+    <Container>
+      <Typography variant='h2'>Books to read: {books.count}</Typography>
+      <span style={{display: "flex"}}>
+        <SearchBar setBooksUrl={setBooksUrl} searchString={searchString} setSearchString={setSearchString} setLoading={setLoading} setPage={setPage}/>
+        <LanguageSelection setBooksUrl={setBooksUrl} language={language} setLanguage={setLanguage} setLoading={setLoading}/>
+      </span>
       { loading
-        ? <p>Loading Books</p>
-        : <div>
-            <BookList books={books} loading={loading} favoriteBooks={favoriteBooks} setFavoriteBooks={setFavoriteBooks} setBookLinks={setBookLinks}/>
+        ? <span>
+            <CircularProgress />
+            <p>Loading Books</p>
+         </span>   
+        : <Paper elevation={3} style={{margin: 20}}>
+            <BookList books={books} loading={loading} favoriteBooks={favoriteBooks} setFavoriteBooks={setFavoriteBooks} setBookLinks={setBookLinks} getBookLink={getBookLink}/>
             <Pagination page={page} setPage={setPage} books={books} setLoading={setLoading} setBooksUrl={setBooksUrl} booksUrl={booksUrl}/>
-          </div>
+          </Paper>
       }
-      <Favorite favoriteBooks={favoriteBooks}/>
-      <BookLinks bookLinks={bookLinks}/>
-    </div>
+      <Favorite favoriteBooks={favoriteBooks} getBookLink={getBookLink} setFavoriteBooks={setFavoriteBooks}/>
+      <BookLinks bookLinks={bookLinks} setBookLinks={setBookLinks}/>
+    </Container>
   );
 }
 
